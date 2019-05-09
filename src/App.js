@@ -4,8 +4,8 @@ import './App.css';
 import Table from './Table.js'
 
 class App extends Component {
-  render() {
-    const characters = [
+  state = {
+    characters: [
       {
         name: 'Charlie',
         job: 'Janitor',
@@ -22,14 +22,27 @@ class App extends Component {
         name: 'Dennis',
         job: 'Bartender',
       },
-    ]
 
+    ],
+  }
+removeCharacter = index => {
+  const { characters } = this.state
+
+  this.setState({
+    characters: characters.filter((character, i) => {
+      return i !== index
+    })
+  })
+};
+  render() {
+    const { characterData, removeCharacter } = this.props
     return (
       <div className="container">
-        <Table characterData={characters} />
+        <Table characterData={this.state.characters} removeCharacter={this.removeCharacter} />
       </div>
     )
   }
+
 }
 
-export default App;
+export default App
